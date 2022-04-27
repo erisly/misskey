@@ -2,7 +2,7 @@
 <MkPagination ref="pagingComponent" :pagination="pagination">
 	<template #empty>
 		<div class="_fullinfo">
-			<img src="https://xn--931a.moe/assets/info.jpg" class="_ghost"/>
+			<img src="https://erisly.social/files/b02ec5a9-b3ba-4f24-a40e-156ba23a3b0e" class="_ghost"/>
 			<div>{{ $ts.noNotifications }}</div>
 		</div>
 	</template>
