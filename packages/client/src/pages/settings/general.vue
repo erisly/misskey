@@ -48,7 +48,8 @@
 		<FormSwitch v-model="disableShowingAnimatedImages" class="_formBlock">{{ $ts.disableShowingAnimatedImages }}</FormSwitch>
 		<FormSwitch v-model="squareAvatars" class="_formBlock">{{ $ts.squareAvatars }}</FormSwitch>
 		<FormSwitch v-model="useSystemFont" class="_formBlock">{{ $ts.useSystemFont }}</FormSwitch>
-		<FormSwitch v-model="useOsNativeEmojis" class="_formBlock">{{ $ts.useOsNativeEmojis }}
+		<FormSwitch v-model="useOsNativeEmojis" class="_formBlock">
+			{{ $ts.useOsNativeEmojis }}
 			<div><Mfm :key="useOsNativeEmojis" text="🍮🍦🍭🍩🍰🍫🍬🥞🍪"/></div>
 		</FormSwitch>
 		<FormSwitch v-model="disableDrawer" class="_formBlock">{{ $ts.disableDrawer }}</FormSwitch>
@@ -60,10 +61,6 @@
 			<option value="large"><span style="font-size: 18px;">Aa</span></option>
 			<option value="veryLarge"><span style="font-size: 20px;">Aa</span></option>
 		</FormRadios>
-	</FormSection>
-
-	<FormSection>
-		<FormSwitch v-model="aiChanMode">{{ $ts.aiChanMode }}</FormSwitch>
 	</FormSection>
 
 	<FormSelect v-model="instanceTicker" class="_formBlock">
@@ -155,7 +152,6 @@ export default defineComponent({
 		enableInfiniteScroll: defaultStore.makeGetterSetter('enableInfiniteScroll'),
 		useReactionPickerForContextMenu: defaultStore.makeGetterSetter('useReactionPickerForContextMenu'),
 		squareAvatars: defaultStore.makeGetterSetter('squareAvatars'),
-		aiChanMode: defaultStore.makeGetterSetter('aiChanMode'),
 	},
 
 	watch: {
@@ -188,10 +184,6 @@ export default defineComponent({
 		},
 
 		squareAvatars() {
-			this.reloadAsk();
-		},
-
-		aiChanMode() {
 			this.reloadAsk();
 		},
 
