@@ -1,7 +1,7 @@
 ---
 _lang_: "English"
 headlineMisskey: "A social network connected by notes"
-introMisskey: "Welcome! erisly.social is a microblogging service, sort of like Twitter, powered by Misskey.\nCreate \"notes\" to share your thoughts with everyone around you. \nWith \"reactions\", you can also quickly express your feelings about everyone's notes. 👍\nHave fun!"
+introMisskey: "Welcome! erisly.social is a microblogging service, sort of like Twitter, powered by Misskey.\nCreate \"notes\" to share your thoughts with everyone around you. \nWith \"reactions\", you can also quickly express your feelings about everyone's notes. \nHave fun!"
 monthAndDay: "{month}/{day}"
 search: "Search"
 notifications: "Notifications"
