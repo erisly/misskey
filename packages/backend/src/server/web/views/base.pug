@@ -61,6 +61,8 @@ html
 		div#splash
 			img#splashIcon(src= '/static-assets/loading.gif')
 			span#splashText
+				span#tipPrefix 
+					= 'Tip: '
 				block randomTip
-					= 'TIP: ' + randomTip
+					= randomTip
 		block content

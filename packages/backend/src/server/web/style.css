@@ -42,3 +42,8 @@ html {
 	padding-top: 80px;
 	font-family: sans-serif;
 }
+
+#tipPrefix {
+	font-weight: bold;
+	color: var(--accent);
+}
