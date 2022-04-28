@@ -59,6 +59,8 @@ html
 			br
 			| Please turn on your JavaScript
 		div#splash
-			img#splashIcon(src= icon || '/static-assets/splash.png')
-			div#splashSpinner
+			img#splashIcon(src= '/static-assets/loading.gif')
+			span#splashText
+				block randomTip
+					= 'TIP: ' + randomTip
 		block content

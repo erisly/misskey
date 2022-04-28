@@ -28,7 +28,7 @@ html {
 	pointer-events: none;
 }
 
-#splashSpinner {
+#splashText {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -36,39 +36,9 @@ html {
 	left: 0;
 	margin: auto;
 	display: inline-block;
-	width: 28px;
-	height: 28px;
-	transform: translateY(70px);
-}
-
-#splashSpinner:before,
-#splashSpinner:after {
-	content: " ";
-	display: block;
-	box-sizing: border-box;
-	width: 28px;
-	height: 28px;
-	border-radius: 50%;
-	border: solid 4px;
-}
-
-#splashSpinner:before {
-	border-color: currentColor;
-	opacity: 0.3;
-}
-
-#splashSpinner:after {
-	position: absolute;
-	top: 0;
-	border-color: currentColor transparent transparent transparent;
-	animation: splashSpinner 0.5s linear infinite;
-}
-
-@keyframes splashSpinner {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+	width: 50%;
+	height: 0;
+	text-align: center;
+	padding-top: 80px;
+	font-family: sans-serif;
 }
