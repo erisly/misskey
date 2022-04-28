@@ -16,7 +16,7 @@
 			</template>
 		</div>
 		<div class="sub">
-			<a v-click-anime href="https://misskey-hub.net/help.html" target="_blank" @click.passive="close()">
+			<a v-click-anime href="https://misskey-hub.net/en/help.html" target="_blank" @click.passive="close()">
 				<i class="fas fa-question-circle icon"></i>
 				<div class="text">{{ $ts.help }}</div>
 			</a>
