@@ -1,9 +1,16 @@
 <template>
-<div v-size="{ max: [450] }" class="wrpstxzv" :class="{ children: depth > 1 }">
+<div
+	v-size="{ max: [450] }"
+	class="wrpstxzv"
+	:class="{ children: depth > 1 }"
+	@click.left.stop="onClick"
+	@click.middle.stop="onMiddleClick"
+	@mousedown.middle.prevent
+>
 	<div class="main">
 		<MkAvatar class="avatar" :user="note.user"/>
 		<div class="body">
-			<XNoteHeader class="header" :note="note" :mini="true"/>
+			<XNoteHeader ref="header" class="header" :note="note" :mini="true"/>
 			<div class="body">
 				<p v-if="note.cw != null" class="cw">
 					<Mfm v-if="note.cw != ''" class="text" :text="note.cw" :author="note.user" :i="$i" :custom-emojis="note.emojis" />
@@ -54,12 +61,27 @@ if (props.detail) {
 		replies = res;
 	});
 }
+
+const header = $ref<{anchor?: HTMLAnchorElement}>()
+const anchor = $computed(() => header?.anchor)
+
+const onClick = (ev: MouseEvent) => {
+  if (!window.getSelection()?.toString()) {
+		ev.preventDefault();
+		anchor?.click();
+	}
+};
+const onMiddleClick = (ev: MouseEvent) => {
+  ev.preventDefault();
+  window.open(anchor?.href, "_blank");
+};
 </script>
 
 <style lang="scss" scoped>
 .wrpstxzv {
 	padding: 16px 32px;
 	font-size: 0.9em;
+	cursor: pointer;
 
 	&.max-width_450px {
 		padding: 14px 16px;
@@ -96,7 +118,6 @@ if (props.detail) {
 
 			> .body {
 				> .cw {
-					cursor: default;
 					display: block;
 					margin: 0;
 					padding: 0;

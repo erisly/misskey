@@ -6,7 +6,7 @@
 	<div v-if="note.user.isBot" class="is-bot">bot</div>
 	<div class="username"><MkAcct :user="note.user"/></div>
 	<div class="info">
-		<MkA class="created-at" :to="notePage(note)">
+		<MkA ref="link" class="created-at" :to="notePage(note)">
 			<MkTime :time="note.createdAt"/>
 		</MkA>
 		<span v-if="note.visibility !== 'public'" class="visibility">
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { } from 'vue';
+import { computed } from 'vue';
 import * as misskey from 'misskey-js';
 import { notePage } from '@/filters/note';
 import { userPage } from '@/filters/user';
@@ -29,6 +29,11 @@ defineProps<{
 	note: misskey.entities.Note;
 	pinned?: boolean;
 }>();
+
+const link = $ref<{anchor?: HTMLAnchorElement}>()
+const anchor = computed(() => link?.anchor)
+
+defineExpose({ anchor })
 </script>
 
 <style lang="scss" scoped>

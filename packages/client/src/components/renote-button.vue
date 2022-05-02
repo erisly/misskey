@@ -2,7 +2,7 @@
 <button v-if="canRenote"
 	ref="buttonRef"
 	class="eddddedb _button canRenote"
-	@click="renote()"
+	@click.stop="renote()"
 >
 	<i class="fas fa-retweet"></i>
 	<p v-if="count > 0" class="count">{{ count }}</p>
