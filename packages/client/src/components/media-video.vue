@@ -1,5 +1,5 @@
 <template>
-<div v-if="hide" class="icozogqfvdetwohsdglrbswgrejoxbdj" @click="hide = false">
+<div v-if="hide" class="icozogqfvdetwohsdglrbswgrejoxbdj" @click.stop="hide = false">
 	<div>
 		<b><i class="fas fa-exclamation-triangle"></i> {{ $ts.sensitive }}</b>
 		<span>{{ $ts.clickToShow }}</span>
@@ -18,7 +18,7 @@
 			:type="video.type"
 		>
 	</video>
-	<i class="fas fa-eye-slash" @click="hide = true"></i>
+	<i class="fas fa-eye-slash" @click.stop="hide = true"></i>
 </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 <div class="tivcixzd" :class="{ done: closed || isVoted }">
 	<ul>
-		<li v-for="(choice, i) in note.poll.choices" :key="i" :class="{ voted: choice.voted }" @click="vote(i)">
+		<li v-for="(choice, i) in note.poll.choices" :key="i" :class="{ voted: choice.voted }" @click.stop="vote(i)">
 			<div class="backdrop" :style="{ 'width': `${showResult ? (choice.votes / total * 100) : 0}%` }"></div>
 			<span>
 				<template v-if="choice.isVoted"><i class="fas fa-check"></i></template>
@@ -13,7 +13,7 @@
 	<p v-if="!readOnly">
 		<span>{{ $t('_poll.totalVotes', { n: total }) }}</span>
 		<span> · </span>
-		<a v-if="!closed && !isVoted" @click="showResult = !showResult">{{ showResult ? $ts._poll.vote : $ts._poll.showResult }}</a>
+		<a v-if="!closed && !isVoted" @click.stop="showResult = !showResult">{{ showResult ? $ts._poll.vote : $ts._poll.showResult }}</a>
 		<span v-if="isVoted">{{ $ts._poll.voted }}</span>
 		<span v-else-if="closed">{{ $ts._poll.closed }}</span>
 		<span v-if="remaining > 0"> · {{ timer }}</span>
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onUnmounted, ref, toRef } from 'vue';
+import { computed, defineComponent, onUnmounted, ref } from 'vue';
 import { sum } from '@/scripts/array';
 import * as os from '@/os';
 import { i18n } from '@/i18n';

@@ -7,11 +7,11 @@
 		<Mfm v-if="note.text" :text="note.text" :author="note.user" :i="$i" :custom-emojis="note.emojis"/>
 		<MkA v-if="note.renoteId" class="rp" :to="`/notes/${note.renoteId}`">RN: ...</MkA>
 	</div>
-	<details v-if="note.files.length > 0">
+	<details v-if="note.files.length > 0" @click.stop>
 		<summary>({{ $t('withNFiles', { n: note.files.length }) }})</summary>
 		<XMediaList :media-list="note.files"/>
 	</details>
-	<details v-if="note.poll">
+	<details v-if="note.poll" @click.stop>
 		<summary>{{ $ts.poll }}</summary>
 		<XPoll :note="note"/>
 	</details>
