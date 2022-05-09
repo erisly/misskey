@@ -70,6 +70,8 @@ export default defineComponent({
 
 	> .icon {
 		width: 1.5em;
+		height: 1.5em;
+		object-fit: cover;
 		margin: 0 0.2em 0 0;
 		vertical-align: bottom;
 		border-radius: 100%;
