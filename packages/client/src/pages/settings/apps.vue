@@ -3,7 +3,7 @@
 	<FormPagination ref="list" :pagination="pagination">
 		<template #empty>
 			<div class="_fullinfo">
-				<img src="https://erisly.social/files/b02ec5a9-b3ba-4f24-a40e-156ba23a3b0e" class="_ghost"/>
+				<img src="https://cute.erisly.social/misskey/b02ec5a9-b3ba-4f24-a40e-156ba23a3b0e" class="_ghost"/>
 				<div>{{ $ts.nothing }}</div>
 			</div>
 		</template>

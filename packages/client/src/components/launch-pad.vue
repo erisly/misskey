@@ -25,7 +25,7 @@
 				<div class="text">{{ $t('aboutX', { x: instanceName }) }}</div>
 			</MkA>
 			<MkA v-click-anime to="/about-misskey" @click.passive="close()">
-				<img src="/static-assets/favicon.png" class="icon"/>
+				<img src="/client-assets/about-icon.png" class="icon"/>
 				<div class="text">{{ $ts.aboutMisskey }}</div>
 			</MkA>
 		</div>
