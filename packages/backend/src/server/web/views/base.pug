@@ -1,17 +1,23 @@
 block vars
 
+block loadClientEntry
+	- const clientEntry = getClientEntry();
+
 doctype html
 
-!= '<!--\n'
-!= '  _____ _         _           \n'
-!= ' |     |_|___ ___| |_ ___ _ _ \n'
-!= ' | | | | |_ -|_ -| \'_| -_| | |\n'
-!= ' |_|_|_|_|___|___|_,_|___|_  |\n'
-!= '                         |___|\n'
-!= ' Thank you for using Misskey!\n'
-!= ' If you are reading this message... how about joining the development?\n'
-!= ' https://github.com/misskey-dev/misskey'
-!= '\n-->\n'
+//
+	-
+
+	  _____ _         _           
+	 |     |_|___ ___| |_ ___ _ _ 
+	 | | | | |_ -|_ -| \'_| -_| | |
+	 |_|_|_|_|___|___|_,_|___|_  |
+	                         |___|
+	 Thank you for using Misskey!
+	 If you are reading this message... how about joining the development?
+	 https://github.com/misskey-dev/misskey
+	 
+	 
 
 html
 
@@ -30,8 +36,14 @@ html
 		link(rel='prefetch' href='https://cute.erisly.social/misskey/b02ec5a9-b3ba-4f24-a40e-156ba23a3b0e')
 		link(rel='prefetch' href='https://cute.erisly.social/misskey/71db9da0-b91b-4287-a4be-169c02eb89ca')
 		link(rel='prefetch' href='https://cute.erisly.social/misskey/0ed4f193-c5de-4603-924c-f8bc724abe14')
-		link(rel='preload' href='/assets/fontawesome/css/all.css' as='style')
 		link(rel='stylesheet' href='/assets/fontawesome/css/all.css')
+		link(rel='modulepreload' href=`/assets/${clientEntry.file}`)
+
+		each href in clientEntry.css
+			link(rel='preload' href=`/assets/${href}` as='style')
+
+		each href in clientEntry.css
+			link(rel='preload' href=`/assets/${href}` as='style')
 
 		title
 			block title
@@ -49,6 +61,10 @@ html
 
 		style
 			include ../style.css
+
+		script.
+			var VERSION = "#{version}";
+			var CLIENT_ENTRY = "#{clientEntry.file}";
 
 		script
 			include ../boot.js

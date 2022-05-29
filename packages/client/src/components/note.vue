@@ -207,7 +207,7 @@ const keymap = {
 	'down|j|tab': focusAfter,
 	'esc': blur,
 	'm|o': () => menu(true),
-	's': () => showContent.value != showContent.value,
+	's': () => showContent.value !== showContent.value,
 };
 
 useNoteCapture({

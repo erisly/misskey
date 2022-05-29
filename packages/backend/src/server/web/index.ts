@@ -4,6 +4,7 @@
 
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { PathOrFileDescriptor, readFileSync } from 'node:fs';
 import ms from 'ms';
 import Koa from 'koa';
 import Router from '@koa/router';
@@ -32,6 +33,7 @@ const _dirname = dirname(_filename);
 const staticAssets = `${_dirname}/../../../assets/`;
 const clientAssets = `${_dirname}/../../../../client/assets/`;
 const assets = `${_dirname}/../../../../../built/_client_dist_/`;
+const swAssets = `${_dirname}/../../../../../built/_sw_dist_/`;
 
 // Init app
 const app = new Koa();
@@ -72,6 +74,9 @@ app.use(views(_dirname + '/views', {
 	extension: 'pug',
 	options: {
 		version: config.version,
+		getClientEntry: () => process.env.NODE_ENV === 'production' ?
+			config.clientEntry :
+			JSON.parse(readFileSync(`${_dirname}/../../../../../built/_client_dist_/manifest.json`, 'utf-8'))['src/init.ts'],
 		config,
 	},
 }));
@@ -136,9 +141,10 @@ router.get('/twemoji/(.*)', async ctx => {
 });
 
 // ServiceWorker
-router.get('/sw.js', async ctx => {
-	await send(ctx as any, `/sw.${config.version}.js`, {
-		root: assets,
+router.get(`/sw.js`, async ctx => {
+	await send(ctx as any, `/sw.js`, {
+		root: swAssets,
+		maxage: ms('10 minutes'),
 	});
 });
 
@@ -241,7 +247,7 @@ router.get(['/@:user', '/@:user/:sub'], async (ctx, next) => {
 			icon: meta.iconUrl,
 			themeColor: meta.themeColor,
 		});
-		ctx.set('Cache-Control', 'public, max-age=30');
+		ctx.set('Cache-Control', 'public, max-age=15');
 	} else {
 		// リモートユーザーなので
 		// モデレータがAPI経由で参照可能にするために404にはしない
@@ -286,7 +292,7 @@ router.get('/notes/:note', async (ctx, next) => {
 			themeColor: meta.themeColor,
 		});
 
-		ctx.set('Cache-Control', 'public, max-age=180');
+		ctx.set('Cache-Control', 'public, max-age=15');
 
 		return;
 	}
@@ -323,7 +329,7 @@ router.get('/@:user/pages/:page', async (ctx, next) => {
 		});
 
 		if (['public'].includes(page.visibility)) {
-			ctx.set('Cache-Control', 'public, max-age=180');
+			ctx.set('Cache-Control', 'public, max-age=15');
 		} else {
 			ctx.set('Cache-Control', 'private, max-age=0, must-revalidate');
 		}
@@ -354,7 +360,7 @@ router.get('/clips/:clip', async (ctx, next) => {
 			themeColor: meta.themeColor,
 		});
 
-		ctx.set('Cache-Control', 'public, max-age=180');
+		ctx.set('Cache-Control', 'public, max-age=15');
 
 		return;
 	}
@@ -379,7 +385,7 @@ router.get('/gallery/:post', async (ctx, next) => {
 			themeColor: meta.themeColor,
 		});
 
-		ctx.set('Cache-Control', 'public, max-age=180');
+		ctx.set('Cache-Control', 'public, max-age=15');
 
 		return;
 	}
@@ -403,7 +409,7 @@ router.get('/channels/:channel', async (ctx, next) => {
 			themeColor: meta.themeColor,
 		});
 
-		ctx.set('Cache-Control', 'public, max-age=180');
+		ctx.set('Cache-Control', 'public, max-age=15');
 
 		return;
 	}
@@ -471,7 +477,7 @@ router.get('(.*)', async ctx => {
 		themeColor: meta.themeColor,
 		randomTip: tips[Math.floor(Math.random() * tips.length)],
 	});
-	ctx.set('Cache-Control', 'public, max-age=300');
+	ctx.set('Cache-Control', 'public, max-age=15');
 });
 
 // Register router
