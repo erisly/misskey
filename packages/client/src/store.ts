@@ -256,7 +256,7 @@ type Plugin = {
  * 常にメモリにロードしておく必要がないような設定情報を保管するストレージ(非リアクティブ)
  */
 import lightTheme from '@/themes/l-erisly.json5';
-import darkTheme from '@/themes/d-erisly.json5'
+import darkTheme from '@/themes/d-erisly.json5';
 
 export class ColdDeviceStorage {
 	public static default = {
