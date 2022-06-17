@@ -79,6 +79,25 @@
 				<p v-if="!draghover && folder != null">{{ i18n.ts.emptyFolder }}</p>
 			</div>
 		</div>
+		<FormSection v-if="!fetching">
+			<template #label>{{ i18n.ts.usageAmount }}</template>
+			<div class="_formBlock uawsfosz">
+				<div class="meter"><div :style="meterStyle"></div></div>
+			</div>
+			<FormSplit>
+				<MkKeyValue class="_formBlock">
+					<template #key>{{ i18n.ts.capacity }}</template>
+					<template #value>{{ bytes(capacity, 1) }}</template>
+				</MkKeyValue>
+				<MkKeyValue class="_formBlock">
+					<template #key>{{ i18n.ts.inUse }}</template>
+					<template #value>{{ bytes(usage, 1) }}</template>
+				</MkKeyValue>
+				<MkKeyValue class="_formBlock">
+					<template #key><MkA to="/settings/drive" class="_textButton">{{ i18n.ts.learnMore }}</MkA></template>
+				</MkKeyValue>
+			</FormSplit>
+		</FormSection>
 		<MkLoading v-if="fetching"/>
 	</div>
 	<div v-if="draghover" class="dropzone"></div>
@@ -87,13 +106,18 @@
 </template>
 
 <script lang="ts" setup>
-import { markRaw, nextTick, onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, markRaw, nextTick, onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import tinycolor from 'tinycolor2';
+import FormSection from '@/components/form/section.vue';
+import MkKeyValue from '@/components/key-value.vue';
+import FormSplit from '@/components/form/split.vue';
 import * as Misskey from 'misskey-js';
 import XNavFolder from './drive.nav-folder.vue';
 import XFolder from './drive.folder.vue';
 import XFile from './drive.file.vue';
 import MkButton from './ui/button.vue';
 import * as os from '@/os';
+import bytes from '@/filters/bytes';
 import { stream } from '@/stream';
 import { defaultStore } from '@/store';
 import { i18n } from '@/i18n';
@@ -131,6 +155,8 @@ const selectedFolders = ref<Misskey.entities.DriveFolder[]>([]);
 const uploadings = uploads;
 const connection = stream.useChannel('drive');
 const keepOriginal = ref<boolean>(defaultStore.state.keepOriginalUploading); // 外部渡しが多いので$refは使わないほうがよい
+const usage = ref<any>(null);
+const capacity = ref<any>(null);
 
 // ドロップされようとしているか
 const draghover = ref(false);
@@ -531,7 +557,12 @@ async function fetch() {
 		return fetchedFiles;
 	});
 
-	const [fetchedFolders, fetchedFiles] = await Promise.all([foldersPromise, filesPromise]);
+	const usagePromise = os.api('drive').then(info => {
+		capacity.value = info.capacity;
+		usage.value = info.usage;
+	});
+
+	const [fetchedFolders, fetchedFiles] = await Promise.all([foldersPromise, filesPromise, usagePromise]);
 
 	for (const x of fetchedFolders) appendFolder(x);
 	for (const x of fetchedFiles) appendFile(x);
@@ -637,9 +668,22 @@ onBeforeUnmount(() => {
 	connection.dispose();
 	ilFilesObserver.disconnect();
 });
+
+const meterStyle = computed(() => {
+	return {
+		width: `${usage.value / capacity.value * 100}%`,
+		background: tinycolor({
+			h: 180 - (usage.value / capacity.value * 180),
+			s: 0.7,
+			l: 0.5
+		})
+	};
+});
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
+
 .yfudmmck {
 	display: flex;
 	flex-direction: column;
@@ -780,6 +824,21 @@ onBeforeUnmount(() => {
 
 	> input {
 		display: none;
+	}
+}
+
+.uawsfosz {
+
+	> .meter {
+		$size: 12px;
+		background: rgba(0, 0, 0, 0.1);
+		border-radius: math.div($size, 2);
+		overflow: hidden;
+
+		> div {
+			height: $size;
+			border-radius: math.div($size, 2);
+		}
 	}
 }
 </style>
