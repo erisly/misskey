@@ -119,14 +119,17 @@ document.documentElement.style.overflowY = 'scroll';
 
 if (defaultStore.state.widgets.length === 0) {
 	defaultStore.set('widgets', [{
-		name: 'calendar',
+		name: 'onlineUsers',
 		id: 'a', place: 'right', data: {}
 	}, {
-		name: 'notifications',
+		name: 'calendar',
 		id: 'b', place: 'right', data: {}
 	}, {
-		name: 'trends',
+		name: 'postForm',
 		id: 'c', place: 'right', data: {}
+	}, {
+		name: 'notifications',
+		id: 'd', place: 'right', data: {}
 	}]);
 }
 
