@@ -1,10 +1,11 @@
 <template>
-<a :href="to" :class="active ? activeClass : null" @click.prevent="nav" @contextmenu.prevent.stop="onContextmenu">
+<a ref="anchor" :href="to" :class="active ? activeClass : null" @click.prevent.stop="nav" @contextmenu.prevent.stop="onContextmenu">
 	<slot></slot>
 </a>
 </template>
 
 <script lang="ts" setup>
+import { inject, ref } from 'vue';
 import * as os from '@/os';
 import copyToClipboard from '@/scripts/copy-to-clipboard';
 import { router } from '@/router';
@@ -22,6 +23,12 @@ const props = withDefaults(defineProps<{
 	behavior: null,
 });
 
+const anchor = ref<HTMLAnchorElement>();
+defineExpose({ anchor });
+
+type Navigate = (path: string, record?: boolean) => void;
+const navHook = inject<null | Navigate>('navHook', null);
+const sideViewHook = inject<null | Navigate>('sideViewHook', null);
 const mkNav = new MisskeyNavigator();
 
 const active = $computed(() => {

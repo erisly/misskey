@@ -43,7 +43,7 @@
 		<div>{{ $ts._tutorial.step7_1 }}</div>
 		<I18n :src="$ts._tutorial.step7_2" tag="div">
 			<template #help>
-				<a href="https://misskey-hub.net/help.html" target="_blank" class="_link">{{ $ts.help }}</a>
+				<a href="https://misskey-hub.net/en/help.html" target="_blank" class="_link">{{ $ts.help }}</a>
 			</template>
 		</I18n>
 		<div>{{ $ts._tutorial.step7_3 }}</div>

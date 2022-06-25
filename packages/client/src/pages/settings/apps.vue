@@ -3,11 +3,11 @@
 	<FormPagination ref="list" :pagination="pagination">
 		<template #empty>
 			<div class="_fullinfo">
-				<img src="https://xn--931a.moe/assets/info.jpg" class="_ghost"/>
+				<img src="https://cute.erisly.social/misskey/b02ec5a9-b3ba-4f24-a40e-156ba23a3b0e" class="_ghost"/>
 				<div>{{ i18n.ts.nothing }}</div>
 			</div>
 		</template>
-		<template v-slot="{items}">
+		<template #default="{items}">
 			<div v-for="token in items" :key="token.id" class="_panel bfomjevm">
 				<img v-if="token.iconUrl" class="icon" :src="token.iconUrl" alt=""/>
 				<div class="body">

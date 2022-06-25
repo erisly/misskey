@@ -16,7 +16,7 @@
 			</template>
 		</div>
 		<div class="sub">
-			<a v-click-anime href="https://misskey-hub.net/help.html" target="_blank" @click.passive="close()">
+			<a v-click-anime href="https://misskey-hub.net/en/help.html" target="_blank" @click.passive="close()">
 				<i class="fas fa-question-circle icon"></i>
 				<div class="text">{{ $ts.help }}</div>
 			</a>
@@ -25,7 +25,7 @@
 				<div class="text">{{ $t('aboutX', { x: instanceName }) }}</div>
 			</MkA>
 			<MkA v-click-anime to="/about-misskey" @click.passive="close()">
-				<img src="/static-assets/favicon.png" class="icon"/>
+				<img src="/client-assets/about-icon.png" class="icon"/>
 				<div class="text">{{ $ts.aboutMisskey }}</div>
 			</MkA>
 		</div>

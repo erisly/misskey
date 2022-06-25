@@ -36,10 +36,17 @@
 			<span v-if="note.localOnly" class="localOnly"><i class="fas fa-biohazard"></i></span>
 		</div>
 	</div>
-	<article class="article" @contextmenu.stop="onContextmenu">
+	
+	<article
+		class="article"
+		@contextmenu.stop="onContextmenu"
+		@click.left="onClick"
+		@click.middle="onMiddleClick"
+		@mousedown.middle.prevent
+	>
 		<MkAvatar class="avatar" :user="appearNote.user"/>
 		<div class="main">
-			<XNoteHeader class="header" :note="appearNote" :mini="true"/>
+			<XNoteHeader ref="header" class="header" :note="appearNote" :mini="true"/>
 			<MkInstanceTicker v-if="showTicker" class="ticker" :instance="appearNote.user.instance"/>
 			<div class="body">
 				<p v-if="appearNote.cw != null" class="cw">
@@ -66,7 +73,7 @@
 					<XPoll v-if="appearNote.poll" ref="pollViewer" :note="appearNote" class="poll"/>
 					<MkUrlPreview v-for="url in urls" :key="url" :url="url" :compact="true" :detail="false" class="url-preview"/>
 					<div v-if="appearNote.renote" class="renote"><XNoteSimple :note="appearNote.renote"/></div>
-					<button v-if="collapsed" class="fade _button" @click="collapsed = false">
+					<button v-if="collapsed" class="fade _button" @click.stop="collapsed = false">
 						<span>{{ i18n.ts.showMore }}</span>
 					</button>
 				</div>
@@ -74,19 +81,19 @@
 			</div>
 			<footer class="footer">
 				<XReactionsViewer ref="reactionsViewer" :note="appearNote"/>
-				<button class="button _button" @click="reply()">
+				<button class="button _button" @click.stop="reply()">
 					<template v-if="appearNote.reply"><i class="fas fa-reply-all"></i></template>
 					<template v-else><i class="fas fa-reply"></i></template>
 					<p v-if="appearNote.repliesCount > 0" class="count">{{ appearNote.repliesCount }}</p>
 				</button>
 				<XRenoteButton ref="renoteButton" class="button" :note="appearNote" :count="appearNote.renoteCount"/>
-				<button v-if="appearNote.myReaction == null" ref="reactButton" class="button _button" @click="react()">
+				<button v-if="appearNote.myReaction == null" ref="reactButton" class="button _button" @click.stop="react()">
 					<i class="fas fa-plus"></i>
 				</button>
-				<button v-if="appearNote.myReaction != null" ref="reactButton" class="button _button reacted" @click="undoReact(appearNote)">
+				<button v-if="appearNote.myReaction != null" ref="reactButton" class="button _button reacted" @click.stop="undoReact(appearNote)">
 					<i class="fas fa-minus"></i>
 				</button>
-				<button ref="menuButton" class="button _button" @click="menu()">
+				<button ref="menuButton" class="button _button" @click.stop="menu()">
 					<i class="fas fa-ellipsis-h"></i>
 				</button>
 			</footer>
@@ -121,6 +128,7 @@ import MkInstanceTicker from '@/components/instance-ticker.vue';
 import { pleaseLogin } from '@/scripts/please-login';
 import { focusPrev, focusNext } from '@/scripts/focus';
 import { checkWordMute } from '@/scripts/check-word-mute';
+import { notePage } from '@/filters/note';
 import { userPage } from '@/filters/user';
 import * as os from '@/os';
 import { defaultStore, noteViewInterruptors } from '@/store';
@@ -176,6 +184,20 @@ const translation = ref(null);
 const translating = ref(false);
 const urls = appearNote.text ? extractUrlFromMfm(mfm.parse(appearNote.text)) : null;
 const showTicker = (defaultStore.state.instanceTicker === 'always') || (defaultStore.state.instanceTicker === 'remote' && appearNote.user.instance);
+
+const header = $ref<{anchor?: HTMLAnchorElement}>()
+const anchor = $computed(() => header?.anchor)
+
+const onClick = (ev: MouseEvent) => {
+  if (!window.getSelection()?.toString()) {
+		ev.preventDefault();
+		anchor?.click();
+	}
+};
+const onMiddleClick = (ev: MouseEvent) => {
+  ev.preventDefault();
+  window.open(anchor?.href, "_blank");
+};
 
 const keymap = {
 	'r': () => reply(true),
@@ -422,6 +444,7 @@ function readPromo() {
 	> .article {
 		display: flex;
 		padding: 28px 32px 18px;
+		cursor: pointer;
 
 		> .avatar {
 			flex-shrink: 0;

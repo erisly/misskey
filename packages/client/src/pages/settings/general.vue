@@ -48,7 +48,8 @@
 		<FormSwitch v-model="disableShowingAnimatedImages" class="_formBlock">{{ i18n.ts.disableShowingAnimatedImages }}</FormSwitch>
 		<FormSwitch v-model="squareAvatars" class="_formBlock">{{ i18n.ts.squareAvatars }}</FormSwitch>
 		<FormSwitch v-model="useSystemFont" class="_formBlock">{{ i18n.ts.useSystemFont }}</FormSwitch>
-		<FormSwitch v-model="useOsNativeEmojis" class="_formBlock">{{ i18n.ts.useOsNativeEmojis }}
+		<FormSwitch v-model="useOsNativeEmojis" class="_formBlock">
+			{{ i18n.ts.useOsNativeEmojis }}
 			<div><Mfm :key="useOsNativeEmojis" text="🍮🍦🍭🍩🍰🍫🍬🥞🍪"/></div>
 		</FormSwitch>
 		<FormSwitch v-model="disableDrawer" class="_formBlock">{{ i18n.ts.disableDrawer }}</FormSwitch>
@@ -60,10 +61,6 @@
 			<option value="large"><span style="font-size: 18px;">Aa</span></option>
 			<option value="veryLarge"><span style="font-size: 20px;">Aa</span></option>
 		</FormRadios>
-	</FormSection>
-
-	<FormSection>
-		<FormSwitch v-model="aiChanMode">{{ i18n.ts.aiChanMode }}</FormSwitch>
 	</FormSection>
 
 	<FormSelect v-model="instanceTicker" class="_formBlock">
@@ -141,7 +138,6 @@ const instanceTicker = computed(defaultStore.makeGetterSetter('instanceTicker'))
 const enableInfiniteScroll = computed(defaultStore.makeGetterSetter('enableInfiniteScroll'));
 const useReactionPickerForContextMenu = computed(defaultStore.makeGetterSetter('useReactionPickerForContextMenu'));
 const squareAvatars = computed(defaultStore.makeGetterSetter('squareAvatars'));
-const aiChanMode = computed(defaultStore.makeGetterSetter('aiChanMode'));
 
 watch(lang, () => {
 	localStorage.setItem('lang', lang.value as string);
@@ -170,7 +166,6 @@ watch([
 	useSystemFont,
 	enableInfiniteScroll,
 	squareAvatars,
-	aiChanMode,
 	showGapBetweenNotesInTimeline,
 	instanceTicker,
 	overridedDeviceKind

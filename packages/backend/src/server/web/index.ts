@@ -458,6 +458,14 @@ router.get('/streaming', async ctx => {
 });
 
 // Render base html for all requests
+const tips = [
+	'Open erisly.social on your mobile to install the mobile app',
+	'You can click the time a note was posted to get a full view of the note',
+	'Don\'t forget to follow Erisly!',
+	'Files uploaded to your Drive are public',
+	'Cute Erisly emotes are available to use around the app',
+	'Remember to use #hashtags to tag notes',
+];
 router.get('(.*)', async ctx => {
 	const meta = await fetchMeta();
 	await ctx.render('base', {
@@ -467,6 +475,7 @@ router.get('(.*)', async ctx => {
 		desc: meta.description,
 		icon: meta.iconUrl,
 		themeColor: meta.themeColor,
+		randomTip: tips[Math.floor(Math.random() * tips.length)],
 	});
 	ctx.set('Cache-Control', 'public, max-age=15');
 });

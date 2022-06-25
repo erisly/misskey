@@ -28,7 +28,7 @@ html {
 	pointer-events: none;
 }
 
-#splashSpinner {
+#splashText {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -36,35 +36,14 @@ html {
 	left: 0;
 	margin: auto;
 	display: inline-block;
-	width: 28px;
-	height: 28px;
-	transform: translateY(70px);
-	color: var(--accent);
-}
-#splashSpinner > .spinner {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 28px;
-	height: 28px;
-	fill-rule: evenodd;
-	clip-rule: evenodd;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-miterlimit: 1.5;
-}
-#splashSpinner > .spinner.bg {
-	opacity: 0.275;
-}
-#splashSpinner > .spinner.fg {
-	animation: splashSpinner 0.5s linear infinite;
+	width: 50%;
+	height: 0;
+	text-align: center;
+	padding-top: 80px;
+	font-family: sans-serif;
 }
 
-@keyframes splashSpinner {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+#tipPrefix {
+	font-weight: bold;
+	color: var(--accent);
 }

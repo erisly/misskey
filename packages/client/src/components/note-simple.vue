@@ -1,8 +1,14 @@
 <template>
-<div v-size="{ min: [350, 500] }" class="yohlumlk">
+<div
+	v-size="{ min: [350, 500] }"
+	class="yohlumlk"
+	@click.left.stop="onClick"
+	@click.middle.stop="onMiddleClick"
+	@mousedown.middle.prevent
+>
 	<MkAvatar class="avatar" :user="note.user"/>
 	<div class="main">
-		<XNoteHeader class="header" :note="note" :mini="true"/>
+		<XNoteHeader ref="header" class="header" :note="note" :mini="true"/>
 		<div class="body">
 			<p v-if="note.cw != null" class="cw">
 				<Mfm v-if="note.cw != ''" class="text" :text="note.cw" :author="note.user" :i="$i" :custom-emojis="note.emojis"/>
@@ -29,6 +35,20 @@ const props = defineProps<{
 }>();
 
 const showContent = $ref(false);
+
+const header = $ref<{anchor?: HTMLAnchorElement}>()
+const anchor = $computed(() => header?.anchor)
+
+const onClick = (ev: MouseEvent) => {
+  if (!window.getSelection()?.toString()) {
+		ev.preventDefault();
+		anchor?.click();
+	}
+};
+const onMiddleClick = (ev: MouseEvent) => {
+  ev.preventDefault();
+  window.open(anchor?.href, "_blank");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -38,6 +58,7 @@ const showContent = $ref(false);
 	padding: 0;
 	overflow: clip;
 	font-size: 0.95em;
+	cursor: pointer;
 
 	&.min-width_350px {
 		> .avatar {
@@ -75,7 +96,6 @@ const showContent = $ref(false);
 		> .body {
 
 			> .cw {
-				cursor: default;
 				display: block;
 				margin: 0;
 				padding: 0;
@@ -88,7 +108,6 @@ const showContent = $ref(false);
 
 			> .content {
 				> .text {
-					cursor: default;
 					margin: 0;
 					padding: 0;
 				}

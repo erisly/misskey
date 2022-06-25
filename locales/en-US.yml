@@ -1,7 +1,7 @@
 ---
 _lang_: "English"
-headlineMisskey: "A network connected by notes"
-introMisskey: "Welcome! Misskey is an open source, decentralized microblogging service.\nCreate \"notes\" to share your thoughts with everyone around you. 📡\nWith \"reactions\", you can also quickly express your feelings about everyone's notes. 👍\nLet's explore a new world! 🚀"
+headlineMisskey: "A social network connected by notes"
+introMisskey: "Welcome! erisly.social is a microblogging service, sort of like Twitter, powered by Misskey.\nCreate \"notes\" to share your thoughts with everyone around you. \nWith \"reactions\", you can also quickly express your feelings about everyone's notes. \nHave fun!"
 monthAndDay: "{month}/{day}"
 search: "Search"
 notifications: "Notifications"
@@ -140,7 +140,7 @@ cacheRemoteFilesDescription: "When this setting is disabled, remote files are lo
 flagAsBot: "Mark this account as a bot"
 flagAsBotDescription: "Enable this option if this account is controlled by a program. If enabled, it will act as a flag for other developers to prevent endless interaction chains with other bots and adjust Misskey's internal systems to treat this account as a bot."
 flagAsCat: "Mark this account as a cat"
-flagAsCatDescription: "Enable this option to mark this account as a cat."
+flagAsCatDescription: "Enable this option to mark this account as a cat. You'll get a pair of cat ears."
 flagShowTimelineReplies: "Show replies in timeline"
 flagShowTimelineRepliesDescription: "Shows replies of users to notes of other users in the timeline if turned on."
 autoAcceptFollowed: "Automatically approve follow requests from users you're following"

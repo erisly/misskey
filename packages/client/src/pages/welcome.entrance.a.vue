@@ -5,13 +5,10 @@
 		<XTimeline class="tl"/>
 		<div class="shape1"></div>
 		<div class="shape2"></div>
-		<img src="/client-assets/misskey.svg" class="misskey"/>
-		<div class="emojis">
-			<MkEmoji :normal="true" :no-style="true" emoji="👍"/>
-			<MkEmoji :normal="true" :no-style="true" emoji="❤"/>
-			<MkEmoji :normal="true" :no-style="true" emoji="😆"/>
-			<MkEmoji :normal="true" :no-style="true" emoji="🎉"/>
-			<MkEmoji :normal="true" :no-style="true" emoji="🍮"/>
+		<h1 class="text logo">{{ instanceName }}</h1>
+		<div class="powered-by">
+			<span>Powered by</span>
+			<img src="/client-assets/misskey.svg" class="misskey"/>
 		</div>
 		<div class="main _panel">
 			<div class="bg">
@@ -29,6 +26,9 @@
 				<div class="action">
 					<MkButton inline gradate data-cy-signup style="margin-right: 12px;" @click="signup()">{{ $ts.signup }}</MkButton>
 					<MkButton inline data-cy-signin @click="signin()">{{ $ts.login }}</MkButton>
+					<div style="padding-top: 8px">
+						<span>Or <a href="/featured" class="_link">browse as a guest</a></span>
+					</div>
 				</div>
 				<div v-if="onlineUsersCount && stats" class="status">
 					<div>
@@ -197,28 +197,27 @@ export default defineComponent({
 			opacity: 0.5;
 		}
 
-		> .misskey {
+		> .logo {
 			position: absolute;
 			top: 42px;
 			left: 42px;
-			width: 160px;
-
-			@media (max-width: 450px) {
-				width: 130px;
-			}
+			color: #fff;
 		}
 
-		> .emojis {
+		> .powered-by {
 			position: absolute;
 			bottom: 32px;
 			left: 35px;
+			display: flex;
+			gap: 4px;
+			color: #fff;
 
-			> * {
-				margin-right: 8px;
-			}
+			> .misskey {
+				width: 80px;
 
-			@media (max-width: 1200px) {
-				display: none;
+				@media (max-width: 450px) {
+					width: 65px;
+				}
 			}
 		}
 

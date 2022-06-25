@@ -3,7 +3,7 @@
 	<MkSpacer :content-max="1200">
 		<div class="lznhrdub">
 			<div v-if="tab === 'local'">
-				<div v-if="meta && stats && tag == null" class="localfedi7 _block _isolated" :style="{ backgroundImage: meta.bannerUrl ? `url(${meta.bannerUrl})` : null }">
+				<div v-if="meta && stats && tag == null" class="localfedi7 _block _isolated">
 					<header><span>{{ $t('explore', { host: meta.name || 'Misskey' }) }}</span></header>
 					<div><span>{{ $t('exploreUsersCount', { count: num(stats.originalUsersCount) }) }}</span></div>
 				</div>
@@ -28,7 +28,7 @@
 				</template>
 			</div>
 			<div v-else-if="tab === 'remote'">
-				<div v-if="tag == null" class="localfedi7 _block _isolated" :style="{ backgroundImage: `url(/client-assets/fedi.jpg)` }">
+				<div v-if="tag == null" class="localfedi7 _block _isolated">
 					<header><span>{{ $ts.exploreFediverse }}</span></header>
 				</div>
 
@@ -222,8 +222,7 @@ export default defineComponent({
 	color: #fff;
 	padding: 16px;
 	height: 80px;
-	background-position: 50%;
-	background-size: cover;
+	background: var(--accent);
 	margin-bottom: var(--margin);
 
 	> * {

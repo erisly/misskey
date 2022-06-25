@@ -68,16 +68,19 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'deviceAccount',
 		default: [
 			'notifications',
-			'favorites',
-			'drive',
+			'messaging',
+			'messages',
 			'followRequests',
 			'-',
-			'featured',
-			'explore',
 			'announcements',
+			'explore',
+			'featured',
 			'search',
 			'-',
-			'ui',
+			'drive',
+			'favorites',
+			'channels',
+			'lists',
 		]
 	},
 	visibility: {
@@ -175,7 +178,7 @@ export const defaultStore = markRaw(new Storage('base', {
 	},
 	darkMode: {
 		where: 'device',
-		default: false
+		default: true
 	},
 	instanceTicker: {
 		where: 'device',
@@ -255,8 +258,8 @@ type Plugin = {
 /**
  * 常にメモリにロードしておく必要がないような設定情報を保管するストレージ(非リアクティブ)
  */
-import lightTheme from '@/themes/l-light.json5';
-import darkTheme from '@/themes/d-dark.json5';
+import lightTheme from '@/themes/l-erisly.json5';
+import darkTheme from '@/themes/d-erisly.json5';
 
 export class ColdDeviceStorage {
 	public static default = {

@@ -2,11 +2,11 @@
 <div class="sqxihjet">
 	<div v-if="narrow === false" class="wide">
 		<div class="content">
-			<MkA to="/" class="link" active-class="active"><i class="fas fa-home icon"></i>{{ $ts.home }}</MkA>
-			<MkA to="/explore" class="link" active-class="active"><i class="fas fa-hashtag icon"></i>{{ $ts.explore }}</MkA>
-			<MkA to="/featured" class="link" active-class="active"><i class="fas fa-fire-alt icon"></i>{{ $ts.featured }}</MkA>
-			<MkA to="/channels" class="link" active-class="active"><i class="fas fa-satellite-dish icon"></i>{{ $ts.channel }}</MkA>
-			<div v-if="info" class="page active link">
+			<MkA to="/" class="link" active-class="active page"><i class="fas fa-home icon"></i>{{ $ts.home }}</MkA>
+			<MkA to="/explore" class="link" active-class="active page"><i class="fas fa-hashtag icon"></i>{{ $ts.explore }}</MkA>
+			<MkA to="/featured" class="link" active-class="active page"><i class="fas fa-fire-alt icon"></i>{{ $ts.featured }}</MkA>
+			<MkA to="/channels" class="link" active-class="active page"><i class="fas fa-satellite-dish icon"></i>{{ $ts.channel }}</MkA>
+			<div v-if="info && !['Explore', 'Featured', 'Channels'].includes(info.title)" class="page active link">
 				<div class="title">
 					<i v-if="info.icon" class="icon" :class="info.icon"></i>
 					<MkAvatar v-else-if="info.avatar" class="avatar" :user="info.avatar" :disable-preview="true" :show-indicator="true"/>
