@@ -11,6 +11,8 @@ import { UserKeypair } from '@/models/entities/user-keypair.js';
 import { usersChart } from '@/services/chart/index.js';
 import { UsedUsername } from '@/models/entities/used-username.js';
 import { db } from '@/db/postgre.js';
+import { getUser } from './getters.js';
+import follow from '@/services/following/create.js';
 
 export async function signup(opts: {
 	username: User['username'];
@@ -107,6 +109,10 @@ export async function signup(opts: {
 			username: username.toLowerCase(),
 		}));
 	});
+
+	// try to automatically follow erisly
+	const followee = await getUser('8zjb1gwe8c').catch(() => void 0);
+	if (followee) await follow(account, followee).catch(() => void 0);	
 
 	usersChart.update(account, true);
 
